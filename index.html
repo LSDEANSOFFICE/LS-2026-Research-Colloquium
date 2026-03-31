@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -167,10 +165,13 @@
   #speakers { background: var(--white); }
   .speakers-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     gap: 28px;
+    justify-items: center;
   }
   .speaker-card {
+    width: 100%;
+    max-width: 520px;
     border: 1px solid var(--cream-dark);
     padding: 28px 24px;
     position: relative; overflow: hidden;
@@ -183,6 +184,13 @@
   }
   .speaker-card:hover::before { height: 100%; }
   .speaker-card:hover { border-color: var(--navy-light); box-shadow: 0 4px 20px rgba(15,32,68,0.08); }
+  .speaker-card img {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 18px 0;
+    border-radius: 8px;
+  }
   .speaker-initials {
     width: 52px; height: 52px; border-radius: 50%;
     background: var(--navy); color: var(--cream);
@@ -218,9 +226,12 @@
     font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase;
     color: var(--navy); padding: 0 16px 12px 0; text-align: left;
   }
+  #bulletin { background: var(--cream); scroll-margin-top: 90px; }
   .bulletin-table tbody tr {
     border-bottom: 1px solid var(--cream-dark);
     transition: background 0.15s;
+    cursor: pointer;
+    touch-action: manipulation;
   }
   .bulletin-table tbody tr:hover { background: rgba(184,146,42,0.05); }
   .bulletin-table td {
@@ -237,20 +248,25 @@
     font-weight: 500; text-transform: uppercase;
     border-radius: 2px;
   }
-  .cat-stem   { background: #dbeafe; color: #1e3a8a; }
-  .cat-social { background: #fce7f3; color: #831843; }
-  .cat-human  { background: #fef3c7; color: #92400e; }
+  .cat-nature   { background: #dbeafe; color: #1e3a8a; }
+  .cat-food { background: #fce7f3; color: #831843; }
+  .cat-lit  { background: #fef3c7; color: #92400e; }
   .cat-health { background: #d1fae5; color: #065f46; }
   .cat-biz    { background: #ede9fe; color: #4c1d95; }
- 
+   .cat-identity    { background: #ede9fe; color: #7aad5a; }
+  .cat-politics    { background: #ede9fe; color: #e7749c; }
+  .cat-tech    { background: #ede9fe; color: #d23e3e; }
+    .cat-econ    { background: #ede9fe; color: #21b5c5; }
+
+
   /* ── CATEGORIES ── */
-  #categories { background: var(--navy); }
+  #categories { background: var(--navy); scroll-margin-top: 90px; }
   #categories .section-title { color: var(--cream); }
   #categories .section-subtitle { color: #a0aec0; }
   #categories .divider-line { background: var(--gold); }
   .categories-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     gap: 16px;
   }
   .category-card {
@@ -259,6 +275,7 @@
     cursor: pointer; position: relative; overflow: hidden;
     transition: border-color 0.2s, transform 0.2s, background 0.2s;
     background: rgba(255,255,255,0.03);
+    touch-action: manipulation;
   }
   .category-card:hover {
     border-color: var(--gold);
@@ -364,7 +381,10 @@
     .hero-meta { flex-direction: column; gap: 20px; }
     .hero-divider { display: none; }
     .modal-header, .modal-body { padding: 20px; }
-    .bulletin-table td:nth-child(3) { display: none; }
+    /* .bulletin-table td:nth-child(3) { display: none; } */
+    .categories-grid { grid-template-columns: 1fr; }
+    .category-card { padding: 22px; }
+    
   }
 </style>
 </head>
@@ -375,7 +395,7 @@
   <div class="nav-brand">2026 Research Colloquium</div>
   <ul class="nav-links">
     <li><a href="#home">Welcome</a></li>
-    <li><a href="#speakers">Speakers</a></li>
+    <li><a href="#speakers">Speaker</a></li>
     <li><a href="#bulletin">Bulletin</a></li>
     <li><a href="#categories">Topics</a></li>
   </ul>
@@ -408,11 +428,11 @@
     <div class="hero-divider"></div>
     <div class="hero-meta-item">
       <div class="label">Presenters</div>
-      <div class="value">24 Students</div>
+      <div class="value">27 Students</div>
     </div>
   </div>
   <div class="hero-cta">
-    <a href="#speakers" class="btn-primary">View Speakers</a>
+    <a href="#speakers" class="btn-primary">View Speaker</a>
     <a href="#categories" class="btn-outline">Browse Topics</a>
   </div>
 </section>
@@ -421,8 +441,8 @@
 <section id="speakers">
   <div class="section-inner">
     <div class="divider-line"></div>
-    <p class="section-tag">Keynote &amp; Guest Speakers</p>
-    <h2 class="section-title">Distinguished Presenters</h2>
+    <p class="section-tag">Keynote &amp; Guest Speaker</p>
+    <h2 class="section-title">Distinguished Presenter</h2>
     <p class="section-subtitle">
       Leading voices across academia and industry joining us for keynotes,
       panel discussions, and invited lectures.
@@ -432,27 +452,13 @@
       <div class="speaker-card">
         <div class="speaker-initials">MS</div>
         <div class="speaker-name"> Dr. Marion Nestle</div>
-        <img src="/img/Key.png" alt="Keynote Speaker Image" width="500" height="300">
+        <img src="img/Key.png" alt="Keynote Speaker Image" width="500" height="300">
         <div class="speaker-title">Keynote Speaker</div>
         <div class="speaker-institution">Paulette Goddard Professor Emerita of Nutrition, Food Studies, and Public Health at NYU</div>
         <div class="speaker-topic">"Food Politics 2026: From Research to Policy Advocacy"</div>
       </div>
  
-      <div class="speaker-card">
-        <div class="speaker-initials">PH </div>
-        <div class="speaker-name">PLACE HOLDER</div>
-        <div class="speaker-title">PLACE HOLDER</div>
-        <div class="speaker-institution">PLACE HOLDER</div>
-        <div class="speaker-topic">PLACE HOLDER</div>
-      </div>
- 
-      <div class="speaker-card">
-        <div class="speaker-initials">PH</div>
-        <div class="speaker-name">PLACE HOLDER</div>
-        <div class="speaker-title">Panel Moderator</div>
-        <div class="speaker-institution">PLACE HOLDER</div>
-        <div class="speaker-topic">PLACE HOLDER &amp; PLACE HOLDER</div>
-      </div>
+  
  
      
     </div>
@@ -479,33 +485,34 @@
         </tr>
       </thead>
       <tbody>
-        <tr><td>Aidan McCauley</td><td>A-Z Mysteries: Medieval Madness </td><td><span class="cat-badge cat-stem">STEM</span></td></tr>
-        <tr><td>Aishwarya Somakandan</td><td>Donors, Doubts, & DMs: Social Media and Peer Influence on High School Students’ Blood Donation Attitudes</td><td><span class="cat-badge cat-stem">STEM</span></td></tr>
-        <tr><td>Annalee Debenport</td><td>Named by Appearance: Investigating Sex Bias in Bird Names </td><td><span class="cat-badge cat-stem">STEM</span></td></tr>
-        <tr><td>Annika van der Wende and Mia Kimura</td><td>From 1886 to 2022: Avian Nomenclature Through Time </td><td><span class="cat-badge cat-stem">STEM</span></td></tr>
+        <tr><td>Aidan McCauley</td><td>A-Z Mysteries: Medieval Madness </td><td><span class="cat-badge cat-lit">Literature &amp; Textual Analysis</span></td></tr>
+        <tr><td>Aishwarya Somakandan</td><td>Donors, Doubts, & DMs: Social Media and Peer Influence on High School Students’ Blood Donation Attitudes</td><td><span class="cat-badge cat-health">Health &amp; The Body</span></td></tr>
+        <tr><td>Annalee Debenport</td><td>Named by Appearance: Investigating Sex Bias in Bird Names </td><td><span class="cat-badge cat-nature">Nature &amp; Naming</span></td></tr>
+        <tr><td>Annika van der Wende and Mia Kimura</td><td>From 1886 to 2022: Avian Nomenclature Through Time </td><td><span class="cat-badge cat-nature">Nature &amp; Naming</span></td></tr>
  
-        <tr><td>Ann-Mei Sun</td><td>Tracing Branches: Complex Branchhood and Resistance in Humanimal </td><td><span class="cat-badge cat-social">Social Sciences</span></td></tr>
-        <tr><td>Anoushka Vaidya</td><td>Inventing Spain: Competing Nationalism and the Imagined Community in the Spanish Civil War </td><td><span class="cat-badge cat-social">Social Sciences</span></td></tr>
-        <tr><td>Anya Bhandari, Jack McCormick, and Paulene Tinio</td><td>Proximity as Power: How Education Shapes Political Opportunity </td><td><span class="cat-badge cat-social">Social Sciences</span></td></tr>
-        <tr><td>Chun Ning Andre Lo</td><td>The Enforcer: The Burden of A Dying Breed of Warriors </td><td><span class="cat-badge cat-social">Social Sciences</span></td></tr>
+        <tr><td>Ann-Mei Sun</td><td>Tracing Branches: Complex Branchhood and Resistance in Humanimal </td><td><span class="cat-badge cat-lit">Literature &amp; Textual Analysis</span></td></tr>
+        <tr><td>Anoushka Vaidya</td><td>Inventing Spain: Competing Nationalism and the Imagined Community in the Spanish Civil War </td><td><span class="cat-badge cat-politics">Politics  &amp; Power</span></td></tr>
+        <tr><td>Anya Bhandari, Jack McCormick, and Paulene Tinio</td><td>Proximity as Power: How Education Shapes Political Opportunity </td><td><span class="cat-badge cat-biz">Education & Access</span></td></tr>
+        <tr><td>Chun Ning Andre Lo</td><td>The Enforcer: The Burden of A Dying Breed of Warriors </td><td><span class="cat-badge cat-identity">Identity &amp; Culture</span></td></tr>
  
-        <tr><td>Claire d'Hont Finn</td><td>Who Controls Your Data?: The Value of Data Privacy to the Future of European Competitiveness on the Global Stage </td><td><span class="cat-badge cat-human">Humanities &amp; Arts</span></td></tr>
-        <tr><td>Clara Hagedorn</td><td>Digital Dominos: How US Sanctions Overlooked the Rise of Digital Authoritarianism in Venezuela </td><td><span class="cat-badge cat-human">Humanities &amp; Arts</span></td></tr>
-        <tr><td>Devyani Pandey</td><td>What does the use and effectiveness of music therapy in motor rehabilitation reveal about the nature of the mind-body relationship? </td><td><span class="cat-badge cat-human">Humanities &amp; Arts</span></td></tr>
-        <tr><td>Haseeb Haider</td><td>Redemption and Betrayal in The Kite Runner </td><td><span class="cat-badge cat-human">Humanities &amp; Arts</span></td></tr>
+        <tr><td>Claire d'Hont Finn</td><td>Who Controls Your Data?: The Value of Data Privacy to the Future of European Competitiveness on the Global Stage </td><td><span class="cat-badge cat-tech">Technology &amp; Data</span></td></tr>
+        <tr><td>Clara Hagedorn</td><td>Digital Dominos: How US Sanctions Overlooked the Rise of Digital Authoritarianism in Venezuela </td><td><span class="cat-badge cat-politics">Politics  &amp; Power</span></td></tr>
+        <tr><td>Devyani Pandey</td><td>What does the use and effectiveness of music therapy in motor rehabilitation reveal about the nature of the mind-body relationship? </td><td><span class="cat-badge cat-health">Health &amp; The Body</span></td></tr>
+        <tr><td>Haseeb Haider</td><td>Redemption and Betrayal in The Kite Runner </td><td><span class="cat-badge cat-lit">Literature &amp; Textual Analysis</span></td></tr>
  
-        <tr><td>Justin Liu</td><td>The Shaky Relationship: A Computational Sentiment Analysis of US Congressional Speeches Respecting Great Britain</td><td><span class="cat-badge cat-health">Health &amp; Medicine</span></td></tr>
-        <tr><td>Makenzie Battle</td><td>The Duality of Me: An Autoethnography about the Complexity of Dual Identities </td><td><span class="cat-badge cat-health">Health &amp; Medicine</span></td></tr>
-        <tr><td>Matthew De Alba</td><td>‘Have You Eaten Today?’ The Barriers of Food and Identity for NYU Students Trying to Find Themselves </td><td><span class="cat-badge cat-health">Health &amp; Medicine</span></td></tr>
-        <tr><td>Maverick Fu</td><td> The Association Between Newly Enrolled Students’ Extracurricular Activities Participation and Their Sense of Belonging in International Secondary School in China</td><td><span class="cat-badge cat-health">Health &amp; Medicine</span></td></tr>
+        <tr><td>Justin Liu</td><td>The Shaky Relationship: A Computational Sentiment Analysis of US Congressional Speeches Respecting Great Britain</td><td><span class="cat-badge cat-politics">Politics  &amp; Power</span></td></tr>
+        <tr><td>Makenzie Battle</td><td>The Duality of Me: An Autoethnography about the Complexity of Dual Identities </td><td><span class="cat-badge cat-identity">Identity &amp; Culture</span></td></tr>
+        <tr><td>Matthew De Alba</td><td>‘Have You Eaten Today?’ The Barriers of Food and Identity for NYU Students Trying to Find Themselves </td><td><span class="cat-badge cat-food"> Food & Campus Life</span></td></tr>
+        <tr><td>Maverick Fu</td><td> The Association Between Newly Enrolled Students’ Extracurricular Activities Participation and Their Sense of Belonging in International Secondary School in China</td><td><span class="cat-badge cat-biz">Education & Access</span></td></tr>
  
-        <tr><td>Minkyu Kim</td><td>Cultural Identity in Transit: Negotiating Authentic Selfhood Between Collectivist and Individualistic Frameworks</td><td><span class="cat-badge cat-biz">Business &amp; Food Insecurity</span></td></tr>
-        <tr><td>Nikhil Mallya</td><td>Artificial Intelligence's Advancement on Fragment Decoding</td><td><span class="cat-badge cat-biz">Business &amp; Food Insecurity</span></td></tr>
-        <tr><td>Rebecca Tonetti</td><td>Understanding CTE and the Future of its Diagnosis</td><td><span class="cat-badge cat-biz">Business &amp; Food Insecurity</span></td></tr>
-        <tr><td>Saylee Nemade </td><td>Beyond the Violet Pantry: Graduate Students & Food Insecurity </td><td><span class="cat-badge cat-biz">Business &amp; Food Insecurity</span></td></tr>
+        <tr><td>Minkyu Kim</td><td>Cultural Identity in Transit: Negotiating Authentic Selfhood Between Collectivist and Individualistic Frameworks</td><td><span class="cat-badge cat-identity">Identity &amp; Culture</span></td></tr>
+        <tr><td>Nikhil Mallya</td><td>Artificial Intelligence's Advancement on Fragment Decoding</td><td><span class="cat-badge cat-tech">Technology &amp; Data</span></td></tr>
+        <tr><td>Rebecca Tonetti</td><td>Understanding CTE and the Future of its Diagnosis</td><td><span class="cat-badge cat-health">Health &amp; The Body</span></td></tr>
+        <tr><td>Saylee Nemade </td><td>Beyond the Violet Pantry: Graduate Students & Food Insecurity </td><td><span class="cat-badge cat-food">  Food & Campus Life
+</span></td></tr>
         <tr><td>Seema Anjali Sawh  </td><td> Developing Beyond Oil:  Guyana’s Path Between Norway’s Prudence and the Gulf’s Prosperity </td><td><span class="cat-badge cat-biz">Business &amp; Food Insecurity</span></td></tr>
-        <tr><td>Siena Park and Emily Smukler </td><td> Analyzing the Dualities of Womanhood in Antiquity: A Comparative Study of Dido and Sita and their Respective Cultures  </td><td><span class="cat-badge cat-biz">Business &amp; Food Insecurity</span></td></tr>
-        <tr><td>Soleil Protos </td><td> cuerpos tejidos: the language between our bodies  </td><td><span class="cat-badge cat-biz">Business &amp; Food Insecurity</span></td></tr>
+        <tr><td>Siena Park and Emily Smukler </td><td> Analyzing the Dualities of Womanhood in Antiquity: A Comparative Study of Dido and Sita and their Respective Cultures  </td><td><span class="cat-badge cat-lit">Business &amp; Food Insecurity</span></td></tr>
+        <tr><td>Soleil Protos </td><td> cuerpos tejidos: the language between our bodies  </td><td><span class="cat-badge cat-identity">Identity &amp; Culture</span></td></tr>
       </tbody>
     </table>
   </div>
@@ -520,44 +527,7 @@
     <p class="section-subtitle">
       Select a category to explore student abstracts and full research summaries.
     </p>
-    <div class="categories-grid">
-      <div class="category-card" onclick="openModal('stem')">
-        <span class="cat-icon"></span>
-        <div class="cat-title">Identity, Culture &amp; Society</div>
-        <div class="cat-count">4 Presentations</div>
-        <span class="cat-arrow">→</span>
-      </div>
-      <div class="category-card" onclick="openModal('social')">
-        <span class="cat-icon"></span>
-        <div class="cat-title">Food, Access &amp; Student Life</div>
-        <div class="cat-count">2 Presentations</div>
-        <span class="cat-arrow">→</span>
-      </div>
-      <div class="category-card" onclick="openModal('human')">
-        <span class="cat-icon"></span>
-        <div class="cat-title">Politics, Power &amp;Global Systems</div>
-        <div class="cat-count">5 Presentations</div>
-        <span class="cat-arrow">→</span>
-      </div>
-      <div class="category-card" onclick="openModal('health')">
-        <span class="cat-icon"></span>
-        <div class="cat-title">Science, Technology &amp; Health</div>
-        <div class="cat-count">3 Presentations</div>
-        <span class="cat-arrow">→</span>
-      </div>
-      <div class="category-card" onclick="openModal('biz')">
-        <span class="cat-icon"></span>
-        <div class="cat-title">Literature, History &amp; Textual Analysis</div>
-        <div class="cat-count">4 Presentations</div>
-        <span class="cat-arrow">→</span>
-      </div>
-      <div class="category-card" onclick="openModal('biz')">
-        <span class="cat-icon"></span>
-        <div class="cat-title">Nature, Representation &amp; Creative Expression</div>
-        <div class="cat-count">3 Presentations</div>
-        <span class="cat-arrow">→</span>
-      </div>
-    </div>
+    <div class="categories-grid" id="categories-grid"></div>
   </div>
 </section>
  
@@ -585,156 +555,174 @@
 <script>
 const data = {
   stem: {
-    label: "Identity, Culture & Society",
+    label: "Identity & Culture",
     abstracts: [
       {
         name: "Makenzie Battle",
     topic: "The Duality of Me: An Autoethnography about the Complexity of Dual Identities  ",
-    text: " Through an autoethnographic study, this project examines the complexities of dual cultural identity within the Black diaspora. By balancing personal narrative and scholarly research, I explore the experience of growing up Black-American and Black-Caribbean and the broader concept of cultural exclusion and inclusion. The narrative elements provide insight into the experience of growing up between two cultures, not fully being accepted by familial figures. This is balanced by studies that address social constructs of generational cultural dissonance and the emergence of intra-diasporic misunderstanding across global communities. This is further emphasized by the dimensionality of first-generation children. Ultimately, this work highlights how individuals with multicultural identities often feel pressure to diminish parts of themselves to fit into a side that is culturally acceptable while advocating for resilience and reconciliation when identity is understood as fluid rather than fixed."
-    },
+    text: `Through an autoethnographic study, this project examines the complexities of dual cultural identity within the Black diaspora. By balancing personal narrative and scholarly research, I explore the experience of growing up Black-American and Black-Caribbean and the broader concept of cultural exclusion and inclusion. The narrative elements provide insight into the experience of growing up between two cultures, not fully being accepted by familial figures. This is balanced by studies that address social constructs of generational cultural dissonance and the emergence of intra-diasporic misunderstanding across global communities. This is further emphasized by the dimensionality of first-generation children. Ultimately, this work highlights how individuals with multicultural identities often feel pressure to diminish parts of themselves to fit into a side that is culturally acceptable while advocating for resilience and reconciliation when identity is understood as fluid rather than fixed.`},
       {
         name: "Minkyu Kim",
         topic: " Cultural Identity in Transit: Negotiating Authentic Selfhood Between Collectivist and Individualistic Frameworks",
-    text: " This paper explores how individuals from collectivist cultural backgrounds negotiate authentic identities within individualistic societies. Drawing from the author's experience navigating Korean and American cultures, the research examines whether the traditional collectivism-individualism binary adequately captures multicultural identity formation. Through a literature review of cross-cultural psychology and developmental theory, surveys of NYU students, interviews with three Korean-American young adults, and analysis of the 2020 film Minari, the research reveals that individuals are not passive recipients of cultural frameworks but active architects of their identities. Findings challenge binary assumptions, showing that young adults employ contextual code-switching and selective integration to forge what Professor Cammie Kim Lin describes as cultural "alloys" — identities that draw from multiple traditions to create something entirely new, stronger than the sum of their parts."
-      },
+    text: `This paper explores how individuals from collectivist cultural backgrounds negotiate authentic identities within individualistic societies. Drawing from the author's experience navigating Korean and American cultures, the research examines whether the traditional collectivism-individualism binary adequately captures multicultural identity formation. Through a literature review of cross-cultural psychology and developmental theory, surveys of NYU students, interviews with three Korean-American young adults, and analysis of the 2020 film Minari, the research reveals that individuals are not passive recipients of cultural frameworks but active architects of their identities. Findings challenge binary assumptions, showing that young adults employ contextual code-switching and selective integration to forge what Professor Cammie Kim Lin describes as cultural "alloys" — identities that draw from multiple traditions to create something entirely new, stronger than the sum of their parts.`},
+{
+  name: "Soleil Protos",
+  topic: "Cuerpos tejidos: the language between our bodies",
+  text: 'cuerpos tejidos (woven bodies) asks: where does the body remember, what is the language between our bodies, and how do we language memory? In the culmination of my thesis, I developed this movement performance and visual installation to explore and navigate language within fragmentation and loss. My inspiration stemmed from conversations I had with my grandmother pre-stroke and post-stroke, as I witnessed the fragmentation of her language and the loss of our communication through word. Alongside this archival research, I engaged with poetry, essays, textile, and dance pieces to guide my movement. My primary research expanded on these topics as I explored other forms of communicating and storytelling through traditional weaving practices in Mexico. '
+},
+{
+  name: "Chun Ning Andre Lo", 
+  topic: "The Enforcer: The Burden of A Dying Breed of Warriors",
+  text: 'My research paper examines the archetype of "The Enforcer" in hockey, a player that is specifically on the roster to be a fighter and a source of intimidation. I begin by tracing the historical origins of fighting in professional hockey, then analyze the evolution of the enforcer role and how they dictated team construction strategy, before exploring their gradual decline and the circumstances that caused their near extinction in the modern game. I also look into the cultural impact that enforcers had, in particular how their presence shaped public perceptions of hockey merely as a violent sport. This perception has reduced enforcers to simplistic stereotypes of "goons". Challenging this narrative, I argue that enforcers bring psychological benefits and off-ice contributions to their team through real world examples., as well as critiquing media and journalistic portrayals misrepresent their true significance and importance.'
+
+}
+   
+    ]
+  },
+  politics: {
+    label: "Politics & Power",
+    abstracts: [
       {
-        name: "Maverick Fu",
-    topic: " The Association Between Newly Enrolled Students’ Extracurricular Activities Participation and Their Sense of Belonging in International Secondary School in China",
-    text: " My study explores how participation in extracurricular activities (ECAs) relates to the development of a sense of school belonging among newly enrolled students at an international secondary school in China. I used the survey data from students in Grades 7–12, and this study applies regression analyses to examine whether ECA participation predicts students’ sense of school belonging. It also investigates the roles of social support, peer relationships, and boarding experiences in shaping this relationship. My study found that: interestingly, students’ participation in extracurricular activities does not significantly affect the sense of school belonging, but those with strong peer support and cross-cultural experience, participating in these activities strengthened their sense of belonging "     
- },
+        name: "Clara Hagedorn",
+        topic: "Digital Dominos: How US Sanctions Overlooked the Rise of Digital Authoritarianism in Venezuela", 
+        text: `Since 2014, the US has sanctioned Venezuela with the goal of promoting democracy. However, the 2024 election, assessed as illegitimate by observers like the Carter Center reveals the policy failure. Nicolas Maduro manipulated election results through digital repression before, during, and after the vote. Yet, US policymakers frame Venezuela through the lens of 1959 Cuba as a regional “domino,” which is reflected in contemporary US-Venezuela sanctions. President Dwight D. Eisenhower’s domino theory fails empirically in geographic terms; I argue it operates in the digital realm as digital dominos: regulatory power, state control of internet infrastructure, and foreign technology transfer. Although Hillary Clinton’s 2010 internet freedom speech and US general licenses in Iran sought to enable civilian access to communication technologies, policy in Venezuela lacks comparable language. I propose policy adjustments to prevent the digital descent into authoritarianism.`},
       {
-        name: "Siena Park and Emily Smukler",
-           topic: "Analyzing the Dualities of Womanhood in Antiquity: A Comparative Study of Dido and Sita and their Respective Cultures ",
-    text: " Female autonomy has been debated throughout history. Women's role and influence continue to develop as feminist literature enables broader discourse. Exploring the origins of female expectations and behavior through ancient texts offers a unique gateway to cultural censorship of female stories. Both the Aeneid and the Ramayana feature elaborate portrayals of affluent women who face difficulty. Dido and Sita, respectively, reveal the profound societal pressures placed on women in ancient times despite being separated geographically, culturally, and temporally. While they share a similar devotion to love, their contrasting responses to hardship demonstrate the expectations of their respective cultures within Ancient Rome and Hinduism. By comparing these archetypes from antiquity, we can explore how they have evolved under the influence of the feminist movement, thereby redefining the modern woman."
-    }
+        name: "Justin Liu",
+        topic: "The Shaky Relationship: A Computational Sentiment Analysis of US Congressional Speeches Respecting Great Britain", 
+        text: `Many know only that America was once bitter rivals with Great Britain, and is now her staunch ally. In this interdisciplinary project, I propose firstly to use computational text analysis to measure the sentiment of references to Great Britain made by members of Congress in the Congressional Record, and then to compose an original historical overview informed by this primary research. Relevant tables and graphs, a timeline and a review of the literature and common narratives will round out my survey.`},
+      {
+        name: "Anoushka Vaidya",
+        topic: "Inventing Spain: Competing Nationalism and the Imagined Community in the Spanish Civil War", 
+        text: `This project explores the Spanish Civil War (1936–1939) as a struggle over national identity. Using Benedict Anderson’s concept of imagined communities, it examines how Republicans and Nationalists created rival visions of Spain: the Republic as modern, democratic, and secular, the Nationalists as Catholic, hierarchical, and traditional. Both sides used propaganda, visual culture, and rhetoric to define who belonged, mobilize support, and justify exclusion, showing how nationalism can unify and divide. The study also considers how art and collective memory, especially Picasso’s Guernica, challenged dominant narratives, highlighting the human cost of political conflict. By analyzing ideology, symbolism, and visual culture, the project demonstrates how imagined nations shape identity, loyalty, and memory, revealing both the power and fragility of nationalism in modern Spain.`},
+  
     ]
   },
   social: {
-    label: "Food, Access & Student Life",
+    label: "Education & Access",
     abstracts: [
       {
-        name: "Elena Morris",
-        topic: "Social Capital in Post-Industrial Towns",
-        text: "Drawing on longitudinal survey data from four Rust Belt communities between 2010 and 2024, this paper maps the erosion and reconstruction of social capital following factory closures. Findings reveal that civic organizations with diverse membership networks sustain higher levels of collective efficacy and show stronger economic recovery indicators than those with more homogeneous compositions."
-      },
+        name: "Anya Bhandari, Jack McCormick, and Paulene Tinio",
+        topic: "Proximity as Power: How Education Shapes Political Opportunity",
+        text: `This project examines how university satellite campuses in Washington, D.C. (like our own D.C. study-away building) structure access to political institutions and what this reveals about education and power. As more universities establish DC-based programs centered on policy, government, and public services, these schools serve as direct gateways into political networks. Through a comparative case study of select schools with DC programs, we will analyze how these institutional positions place students within political spaces. 
+
+Rather than evaluating individual outcomes, this project will use a mixed-method approach that focuses on the structural relationships between higher education and political access. We are interested in how proximity shapes representation and elite formation. By looking into these cases, we reveal broader conversations about democratic participation. This research will explore how educational spaces intersect with the production of political power in the U.S. `},
       {
-        name: "Femi Adeyemi",
-        topic: "Gentrification and Identity Formation",
-        text: "This ethnographic study follows 40 long-term residents in a rapidly gentrifying urban neighborhood over 18 months. It explores how displacement pressures alter residents' self-identification, community belonging, and political participation. Counter-narratives of neighborhood ownership emerged as a significant coping strategy, with implications for culturally responsive housing policy."
-      },
-      {
-        name: "Grace Kim",
-        topic: "Polarization Dynamics in Social Networks",
-        text: "Using a computational agent-based model calibrated with Twitter/X interaction data, this research simulates how algorithmic content curation accelerates ideological sorting. Results indicate that removing recommendation systems reduces echo chamber formation by 38%, while introducing cross-cutting content exposure gradually reduces affective polarization scores over simulated 90-day periods."
-      },
-      {
-        name: "Hector Vance",
-        topic: "Trust in Democratic Institutions, 2000–2025",
-        text: "This comparative study analyzes 25 years of cross-national survey data across 18 OECD democracies to identify structural predictors of declining institutional trust. Corruption perception, economic inequality, and media fragmentation emerge as the strongest predictors. The paper concludes by modeling conditions under which institutional trust is most effectively restored through transparency reforms."
-      }
+        name: "Maverick Fu",
+        topic: "The Association Between Newly Enrolled Students’ Extracurricular Activities Participation and Their Sense of Belonging in International Secondary School in China",
+        text: `My study explores how participation in extracurricular activities (ECAs) relates to the development of a sense of school belonging among newly enrolled students at an international secondary school in China. 
+
+I used the survey data from students in Grades 7–12, and this study applies regression analyses to examine whether ECA participation predicts students’ sense of school belonging. It also investigates the roles of social support, peer relationships, and boarding experiences in shaping this relationship. My study found that: interestingly, students’ participation in extracurricular activities does not significantly affect the sense of school belonging, but those with strong peer support and cross-cultural experience, participating in these activities strengthened their sense of belonging`},
+    
     ]
   },
-  human: {
-    label: "Politics, Power & Global Systems",
+  technology: {
+    label: "Technology & Data",
     abstracts: [
       {
-        name: "Ingrid Solis",
-        topic: "Memory and Myth in Caribbean Literature",
-        text: "This literary analysis examines how three contemporary Caribbean novelists construct collective memory through mythological retelling. By reading Edwidge Danticat, Marlon James, and Dionne Brand alongside oral tradition scholarship, the paper argues that myth in postcolonial fiction functions not as escapism but as a form of historical redress, reclaiming narrative authority denied by colonial archives."
-      },
+        name: "Claire d'Hont Finn",
+        topic: "Who Controls Your Data?: The Value of Data Privacy to the Future of European Competitiveness on the Global Stage",
+        text: 'This thesis argues that the value of the collection, exchange, and use of personal data by companies needs to be recognized by policymakers and consumers and therefore needs to be more heavily regulated by the European Union (EU). Alongside the discussion of value, this thesis also addresses the benefits of data privacy regulation which emphasizes prevention rather than fines and enforcement. Using economic and legal theory on the value of data in the digital economy it examines existing legislation and proposed legislative changes in order to argue that EU policymakers are undervaluing personal data as both a human right and a bearer of economic value. Lastly it includes a comparison between EU, US, and Chinese data privacy legislation and the regulatory culture which supports it.'
+         }, 
+        {
+          name: "Nikhil Mallya",
+          topic:"Artificial Intelligence's Advancement on Fragment Decoding",
+          text: 'My project focuses on researching and analyzing how Artificial Intelligence, specifically the algorithm called Fragmentarium, has affected the decoding of Fragments from the age of Antiquity. This program is cutting-edge technology that allows breakthrough discovery of what cuneiform on Assyrian Clay Tablets means and allows us to piece together Epics from Babylon, like the Gilgamesh. Fragmentarium is a tool that can work much faster and more efficiently than a human to translate the cuneiform, and in addition to completing stories and poems, it can translate other types of text, giving us a new perspective on their culture as well. My goal is to explore how this reconstruction process works in depth and what stories it is able to decipher and complete. '
+        }
+    
+      ]
+  },
+
+  food: {
+    label: " Food & Campus Life",
+    abstracts: [
       {
-        name: "James Park",
-        topic: "The Aesthetics of Surveillance in Cinema",
-        text: "Surveillance aesthetics in contemporary film—characterized by CCTV grain, drone perspectives, and data-dashboard interfaces—have migrated from documentary realism into fictional narrative. This study analyzes 12 films from 2015–2025 to trace how cinematographic surveillance codes construct ideological assumptions about visibility, consent, and power, with particular attention to post-9/11 security discourse."
-      },
+        name: "Saylee Nemade",
+        topic: "Beyond the Violet Pantry: Graduate Students & Food Insecurity",
+        text: `This project covers the importance of the Violet Pantry (VP), as it is the first pantry on campus and is housed within the School of Liberal Studies. This project focuses on the population and visitors that use the pantry as it is for students. While the pantry does not turn any student away, we do primarily cater to LS Students. However, these past three years, the VP has seen an increase of graduate students. The research done through this project showcases first hand accounts of concerns and how the VP has aided graduate students through qualitative study done in Summer 2025. `},
       {
-        name: "Kira Lawson",
-        topic: "Language Reclamation Among Indigenous Youth",
-        text: "This participatory action research project documents a three-year language revitalization initiative in a Lakota community, centering the experiences of young speakers aged 14–22. Findings demonstrate that digital media production in Indigenous languages—podcasts, social content, and video games—significantly outperforms classroom instruction in fostering intergenerational transmission and speaker confidence."
-      },
-      {
-        name: "Leo Chen",
-        topic: "Architectural Form and Power in Authoritarian States",
-        text: "Monumental architecture in authoritarian contexts serves as spatial rhetoric, encoding permanence, hierarchy, and ideological supremacy. Through comparative analysis of public building programs in three 21st-century authoritarian states, this paper argues that contemporary autocracies have shifted from Soviet-style brutalism toward a vernacular-fusion aesthetic that legitimizes power through cultural authenticity claims."
-      }
+        name: "Matthew De Alba",
+        topic: "‘Have You Eaten Today?’ The Barriers of Food and Identity for NYU Students Trying to Find Themselves ",
+        text: `With the burning question of "How does college impact the way that college students eat?," this project explores some of the various factors that are impacting how college students (with a focus on NYU students) eat and experience food. With a focus on newfound independence, food security, and commensality, this project explores the findings of several reports and research papers on the college eating experience, as well as primary research on the topic, to begin understanding some current NYU students' relationship with food. This research project began in my Advanced Writing Studio: Food Writing course, and has further developed through an applied research project related to my work with the Liberal Studies Violet Pantry (via my Critical Service Learning course), allowing me to further situate this exploration in the larger topic of food security.`}
     ]
   },
   health: {
-    label: "Science, Technology & Health",
+    label: " Health & the Body",
     abstracts: [
       {
-        name: "Maya Torres",
-        topic: "CRISPR Applications in Rare Genetic Disorders",
-        text: "This paper reviews current CRISPR-Cas9 clinical trials targeting monogenic disorders including sickle cell disease and Duchenne muscular dystrophy, evaluating both efficacy and off-target mutation profiles. A meta-analysis of 14 studies finds meaningful reductions in pathological gene expression, while identifying editing fidelity as the primary bottleneck for broader therapeutic application."
-      },
+        name: "Rebecca Tonetti",
+        topic: "Understanding CTE and the Future of its Diagnosis",
+        text: `My project discusses Chronic Traumatic Encephalopathy, a degenerative brain disease caused by repeated head injuries and traumas. CTE has been in the public eye since studies done on athletes concluded that the injuries sustained during their career had devastating effects on their brain health and may have even caused them to die prematurely. CTE, however, can only be diagnosed after death due to the nature of detecting abnormal tau proteins in the brain. I did research on a study in Amsterdam that may have found a solution to this problem by detecting blood biomarkers for CTE symptoms and comparing them with other neurodegenerative diseases. Through my poster, I hope to educate people on what CTE is and how this new technique of study may impact the future of neurological study. `},
       {
-        name: "Nathan Wells",
-        topic: "Mental Health Outcomes in College Athletes",
-        text: "Survey data from 1,200 NCAA Division I athletes across five institutions reveal that 34% meet clinical screening thresholds for anxiety or depression, compared to 28% in the non-athlete student population. The study isolates sport-specific stressors including injury, performance pressure, and identity foreclosure as predictors, recommending embedded sports psychology services as a cost-effective institutional response."
-      },
+        name: "Devyani Pandey",
+        topic: "What does the use and effectiveness of music therapy in motor rehabilitation reveal about the nature of the mind-body relationship?",
+        text: `The goal of the project was to explore what the use and effectiveness of music therapy in motor rehabilitation reveal about the nature of the mind-body relationship, to understand which philosophical framework offers the most coherent account of how musical engagement and neural processes form a necessary, integrated unity. The project demonstrates that music therapy challenges traditional dualist and reductive physicalist theories; instead supporting an embodied model of mental causation. First, this project presents the scientific evidence for music therapy’s efficacy to show how external musical stimuli drive physical recovery. Second, it explores the philosophical significance of these findings, the origins of the mind-body problem and the challenge of mental causation. Third, I assess philosophy of mind theories in light of music therapy’s evidence, demonstrating their explanatory shortcomings. `},
       {
-        name: "Olivia Grant",
-        topic: "Access to Telehealth in Rural Communities",
-        text: "Since the 2020 expansion of telehealth reimbursement, rural adoption has grown but structural barriers persist. This mixed-methods study analyzes claims data from 6 rural counties alongside 30 provider interviews, finding that broadband limitations, digital literacy gaps, and insurance reimbursement inconsistencies collectively reduce effective access for elderly and low-income populations despite policy expansion."
-      },
-      {
-        name: "Pedro Alves",
-        topic: "The Microbiome's Role in Autoimmune Disease",
-        text: "Dysbiosis of the gut microbiome has been increasingly implicated in autoimmune conditions including rheumatoid arthritis, lupus, and inflammatory bowel disease. This literature synthesis evaluates mechanistic evidence across 28 peer-reviewed studies, proposing a framework in which epithelial barrier disruption and microbial metabolite signaling constitute a bidirectional pathway between gut ecology and systemic immune dysregulation."
-      }
+        name: "Aishwarya Somakandan",
+        topic: "Donors, Doubts, & DMs: Social Media and Peer Influence on High School Students’ Blood Donation Attitudes",
+        text: `This independent research project examines how peer influence and social media shape high school students’ attitudes toward blood donation. Using a quantitative survey design, I collected responses from 30 participants at a student-led blood drive and measured attitudes with the Blood Donation Attitude Scale (BDAS) across motivation, barriers, and knowledge. Participants also identified how they learned about the drive (peer-led Instagram campaign, teacher flyers/announcements, school administrative emails, or Red Cross emails). Overall attitudes were positive (M = 3.76/5). Attitudes trended highest among students reached through peer-led Instagram (M = 4.2) and teacher messaging (M = 4.1), compared to administrative emails (M = 3.9) and Red Cross emails (M = 3.7). Although group differences were not statistically significant (ANOVA p = 0.274), the pattern suggests youth-led, platform-native outreach may be especially effective for improving Gen Z donor recruitment. `},
+     
     ]
   },
   biz: {
-    label: "Literature, History & Textual Analysis",
+    label: "Literature & Textual Analysis",
     abstracts: [
       {
-        name: "Quinn Abbott",
-        topic: "ESG Metrics and Long-Term Firm Performance",
-        text: "This study examines whether high ESG-rated firms outperform low-rated counterparts using a 15-year panel of S&P 500 companies. Controlling for sector, firm size, and market conditions, results show a modest but statistically significant positive association between composite ESG scores and 5-year total shareholder return. Governance scores show the strongest individual effect, outperforming both environmental and social dimensions."
-      },
+        name: "Haseeb Haider",
+        topic: "Redemption and Betrayal in The Kite Runner",
+        text: `An exploration on the themes of redemption and betrayal in Khaled Hosseini’s "The Kite Runner" inquiring on the question: How do themes of betrayal and redemption in Khaled Hosseini's The Kite Runner reflect the complexities of human relationships and moral development in the context of Afghan socio-political history during the Soviet invasion and the rise of the Taliban?`},
       {
-        name: "Rina Sharma",
-        topic: "Universal Basic Income: A Comparative Analysis",
-        text: "This policy analysis compares five national or regional UBI pilot programs across Finland, Kenya, Stockton (CA), India, and Alaska, evaluating outcomes across poverty reduction, labor market participation, and mental health. Findings are mixed: unconditional transfers reliably reduce material deprivation and improve wellbeing indicators, but effects on formal employment vary substantially by program design and local economic conditions."
-      },
+        name: "Siena Park and Emily Smukler",
+        topic: "Analyzing the Dualities of Womanhood in Antiquity: A Comparative Study of Dido and Sita and their Respective Cultures ",
+        text: `Female autonomy has been debated throughout history. Women's role and influence continue to develop as feminist literature enables broader discourse. Exploring the origins of female expectations and behavior through ancient texts offers a unique gateway to cultural censorship of female stories. Both the Aeneid and the Ramayana feature elaborate portrayals of affluent women who face difficulty. Dido and Sita, respectively, reveal the profound societal pressures placed on women in ancient times despite being separated geographically, culturally, and temporally. While they share a similar devotion to love, their contrasting responses to hardship demonstrate the expectations of their respective cultures within Ancient Rome and Hinduism. By comparing these archetypes from antiquity, we can explore how they have evolved under the influence of the feminist movement, thereby redefining the modern woman.`},
       {
-        name: "Samuel Brooks",
-        topic: "Cryptocurrency Regulation in Emerging Markets",
-        text: "Emerging market economies face distinct regulatory challenges around cryptocurrency adoption, where informal dollarization, capital flight risks, and limited enforcement capacity collide. This comparative case study examines Nigeria, El Salvador, and India's divergent regulatory approaches between 2020 and 2025, arguing that effective frameworks must balance financial inclusion potential against macroeconomic stability concerns unique to developing economies."
-      },
+        name: "Aidan McCauley",
+        topic: "A-Z Mysteries: Medieval Madness ",
+        text: `Through my ACA class, I was able to break down a medieval manuscript fragment that's held in the library's archives. I was tasked with uncovering what was in front of me using what I learned over the semester. I was given some info to start with and what previous people had made notes of, but ultimately, I was starting from square one. I first examined its material, script, ink, and layout, which helped me determine that it was likely made of sheepskin parchment, and written in Gothic textura script between the 13th and 15th centuries. The red rubrication, marginal notes, and multiple handwriting styles suggested that it was used for generations for scholarly use. Some translated lines did not clearly align with Aristotle’s Physics, which the fragment was believed to have come from. I determined that it was something else, leaving it as an open ending. While the full mystery wasn’t fully translated, the manuscript ultimately reflected a record of learning and human curiosity over time. `},
       {
-        name: "Tara Obi",
-        topic: "Gender Equity in Executive Compensation",
-        text: "Using proxy statement data from 400 Fortune 1000 companies over ten years, this study measures the gender pay gap at the executive level after controlling for role, tenure, and industry. A residual gap of 16.4% persists, concentrated in variable compensation rather than base salary. The analysis implicates discretionary bonus structures as the primary mechanism perpetuating executive-level pay disparities."
-      }
+        name: "Ann-Mei Sun",
+        topic: "Tracing Branches: Complex Branchhood and Resistance in Humanimal",
+        text: `This project explores the role of branches in Bhanu Kapil’s Humanimal as living, contradictory entities. I mirrored the text and created a concept called complex branchhood. I argue that branches in the text act with agency, memory, and ambivalence. They nurture and suffocate, bear traces and erase them, and blur boundaries between human, animal, and environment. Through close reading, I analyze moments where branches stir like liquid metal, link to the tentacular girl, or suffocate her mouth, revealing tensions between care and coercion, life and fear, visibility and erasure. By considering Kapil’s branches as witnesses to colonial and ecological violence, this study examines how vitality and domination coexist in the natural world and asks: if branches can act, remember, and resist, what does it mean to be human?`}
     ]
   }, 
-  biz: {
-    label: "Nature, Representation & Creative Expression",
+  nature: {
+    label: " Nature & Naming",
     abstracts: [
       {
-        name: "Quinn Abbott",
-        topic: "ESG Metrics and Long-Term Firm Performance",
-        text: "This study examines whether high ESG-rated firms outperform low-rated counterparts using a 15-year panel of S&P 500 companies. Controlling for sector, firm size, and market conditions, results show a modest but statistically significant positive association between composite ESG scores and 5-year total shareholder return. Governance scores show the strongest individual effect, outperforming both environmental and social dimensions."
-      },
+        name: "Annalee Debenport",
+        topic: "Named by Appearance: Investigating Sex Bias in Bird Names",
+        text: `A majority of the English-language common names of birds include descriptors of their physical features, but the language used to describe the species reveals deeper patterns in how nature has been observed and valued. Of the 5,879 birds named after their physical features, 84% are named after traits in both sexes, 16% are named after traits that only occur in males, and 0.3% are named after traits that only occur in females. Using data from the AvianLexiconAtlas, a database of descriptive categories for the terms used in English-language bird names, this research explores whether naming practices have placed more of an emphasis on male-only physical traits compared to the frequency of their occurrence in nature. Recognizing potential bias in approaches to naming species can encourage a more inclusive approach to describing biodiversity while drawing attention to the often-overlooked traits and ecological roles of female birds. `},
       {
-        name: "Rina Sharma",
-        topic: "Universal Basic Income: A Comparative Analysis",
-        text: "This policy analysis compares five national or regional UBI pilot programs across Finland, Kenya, Stockton (CA), India, and Alaska, evaluating outcomes across poverty reduction, labor market participation, and mental health. Findings are mixed: unconditional transfers reliably reduce material deprivation and improve wellbeing indicators, but effects on formal employment vary substantially by program design and local economic conditions."
-      },
-      {
-        name: "Samuel Brooks",
-        topic: "Cryptocurrency Regulation in Emerging Markets",
-        text: "Emerging market economies face distinct regulatory challenges around cryptocurrency adoption, where informal dollarization, capital flight risks, and limited enforcement capacity collide. This comparative case study examines Nigeria, El Salvador, and India's divergent regulatory approaches between 2020 and 2025, arguing that effective frameworks must balance financial inclusion potential against macroeconomic stability concerns unique to developing economies."
-      },
-      {
-        name: "Tara Obi",
-        topic: "Gender Equity in Executive Compensation",
-        text: "Using proxy statement data from 400 Fortune 1000 companies over ten years, this study measures the gender pay gap at the executive level after controlling for role, tenure, and industry. A residual gap of 16.4% persists, concentrated in variable compensation rather than base salary. The analysis implicates discretionary bonus structures as the primary mechanism perpetuating executive-level pay disparities."
-      }
+        name: "Annika van der Wende and Mia Kimura",
+        topic: "From 1886 to 2022: Avian Nomenclature Through Time",
+        text: `Avian nomenclature is the practice of assigning English-language common names of birds; however, there is no standard approach or set of rules that guides naming standards. Components such as species habitat, behavior, physical characteristics contribute to the common names of species. Such factors have led us to wonder, how has the use of specific identifiers evolved over time? In order to investigate our question, we categorized a list of North-American bird species from 1886 and 2025 based on the unique identifiers in the species’ English-language common names into one of 11 categories: both sexes physical trait, male physical trait, female physical trait, size, geographic location, behavior, natural history, local language, person, miscellaneous, or no unique identifier. By categorizing North American bird species from 1886 and 2022, we are able to examine how naming trends have changed. `},
+      
     ]
-  }
+  },
+   human: {
+    label: "Economics & Development ",
+    abstracts: [
+      {
+        name: "Seema Anjali Sawh",
+        topic: "Developing Beyond Oil:  Guyana’s Path Between Norway’s Prudence and the Gulf’s Prosperity",
+        text: `This thesis examines how Guyana, one of the world’s fastest growing economies following the discovery of offshore oil in 2015, can avoid the “resource curse” that has undermined long term development in many resource rich states. Drawing on comparative analysis of Norway’s sovereign wealth and fiscal governance model and the Gulf States’ rent based welfare systems, the project asks whether Guyana can chart a distinct, sustainable development path. Using fiscal evidence from Guyana’s National Budget, and original interviews with senior policymakers, including Vice President Bharrat Jagdeo, the research evaluates the country’s emerging oil governance framework, diversification, labor market planning, and environmental commitments. The thesis concludes by proposing institutional and fiscal policy recommendations aimed at strengthening diversification, preserving macroeconomic stability, and ensuring that oil revenues translate into long term, broad development for Guyanese citizens.`},
+     
+    ]
+  },
 };
+
+function renderCategoryCards() {
+  const grid = document.getElementById('categories-grid');
+  grid.innerHTML = Object.entries(data).map(([key, category]) => `
+    <div class="category-card" onclick="openModal('${key}')">
+      <span class="cat-icon"></span>
+      <div class="cat-title">${category.label}</div>
+      <div class="cat-count">${category.abstracts.length} Presentation${category.abstracts.length !== 1 ? 's' : ''}</div>
+      <span class="cat-arrow">→</span>
+    </div>
+  `).join('');
+}
+
+renderCategoryCards();
  
 function openModal(key) {
   const cat = data[key];
@@ -751,6 +739,47 @@ function openModal(key) {
   document.getElementById('modal-overlay').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
+
+function openAbstract(name) {
+  let found = null;
+  let categoryLabel = 'Abstract';
+  Object.values(data).forEach(cat => {
+    cat.abstracts.forEach(a => {
+      if (a.name === name) {
+        found = a;
+        categoryLabel = cat.label;
+      }
+    });
+  });
+
+  document.getElementById('modal-cat-label').textContent = categoryLabel;
+  document.getElementById('modal-title').textContent = name;
+
+  if (found) {
+    document.getElementById('modal-abstracts').innerHTML = `
+      <div class="abstract-item">
+        <div class="abstract-topic">${found.topic}</div>
+        <div class="abstract-text">${found.text}</div>
+      </div>
+    `;
+  } else {
+    document.getElementById('modal-abstracts').innerHTML = `
+      <div class="abstract-item">
+        <div class="abstract-text">Abstract text for this presenter is not available yet.</div>
+      </div>
+    `;
+  }
+
+  document.getElementById('modal-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+document.querySelectorAll('#bulletin tbody tr').forEach(row => {
+  row.addEventListener('click', () => {
+    const presenter = row.cells[0] ? row.cells[0].innerText.trim() : '';
+    if (presenter) openAbstract(presenter);
+  });
+});
  
 function closeModal() {
   document.getElementById('modal-overlay').classList.remove('open');
@@ -763,7 +792,6 @@ function closeModalOutside(e) {
  
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') closeModal();
-});
-</script>
+});</script>
 </body>
 </html>
